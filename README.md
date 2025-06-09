@@ -36,4 +36,4 @@ git push
 
 Gradio 版本支持：4.26.0、4.0.0
 
-完整文档请见：https://ai.baidu.com/ai-doc/AISTUDIO/Plu48z144
+完整文档请见：https://ai.baidu.com/ai-doc/AISTUDIO/Plu48z144 
