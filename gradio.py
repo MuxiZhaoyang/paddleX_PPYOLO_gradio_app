@@ -7,6 +7,56 @@ import os
 import json
 import traceback
 
+import subprocess
+import sys
+import importlib.util
+
+def install_paddlex():
+    try:
+        # 执行pip install命令安装PaddleX
+        print("正在安装PaddleX...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "paddlex"])
+        print("PaddleX安装完成。")
+        
+        # 检查PaddlePaddle是否正确安装
+        print("正在检查PaddlePaddle安装...")
+        spec = importlib.util.find_spec("paddle")
+        if spec is None:
+            raise ModuleNotFoundError("PaddlePaddle未安装或安装失败")
+        
+        # 检查PaddleX是否正确安装
+        print("正在检查PaddleX安装...")
+        spec = importlib.util.find_spec("paddlex")
+        if spec is None:
+            raise ModuleNotFoundError("PaddleX未安装或安装失败")
+        
+        # 打印版本信息（可选）
+        import paddle
+        import paddlex
+        print(f"PaddlePaddle版本: {paddle.__version__}")
+        print(f"PaddleX版本: {paddlex.__version__}")
+        
+        print("环境检查成功，PaddleX已正确安装。")
+        return True
+        
+    except subprocess.CalledProcessError as e:
+        print(f"安装过程中发生错误: {e}")
+        return False
+    except ModuleNotFoundError as e:
+        print(f"模块导入失败: {e}")
+        return False
+    except Exception as e:
+        print(f"发生未知错误: {e}")
+        return False
+
+# 执行安装和检查
+if __name__ == "__main__":
+    success = install_paddlex()
+    if success:
+        print("安装和检查流程已成功完成。")
+    else:
+        print("安装或检查过程中出现问题，请查看上面的错误信息。")
+
 print("正在启动 Gradio 应用...")
 print(f"Gradio 版本: {gr.__version__}")
 
