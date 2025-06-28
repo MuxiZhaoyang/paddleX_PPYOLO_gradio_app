@@ -67,6 +67,19 @@ current_file_path = os.path.abspath(__file__)
 
 # 输出当前脚本的位置
 print(f"当前脚本的位置是: {current_file_path}")
+path_to_check = "/home/aistudio/inference"
+
+# 检查路径是否存在
+if os.path.exists(path_to_check):
+    print(f"路径 {path_to_check} 存在。")
+    
+    # 列出 /home/aistudio/ 下的所有文件和目录
+    files_and_dirs = os.listdir("/home/aistudio")
+    print("/home/aistudio/ 下的文件和目录:")
+    for item in files_and_dirs:
+        print(item)
+else:
+    print(f"路径 {path_to_check} 不存在。")
 try:
     # 直接在代码中定义配置字典
     # 注意：请确保 model_dir 的路径正确
