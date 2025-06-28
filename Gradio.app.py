@@ -251,14 +251,17 @@ footer { display: none !important }
 }
 .image-display > div > img {
     max-width: 100% !important;
-    max-height: 100% !important;
+    max-height: 100% !important;-
     object-fit: contain !important;
 }
 """
 
 # 创建Gradio界面
 print("创建界面...")
-with gr.Blocks(css=css, title="PP-YOLOE+ 智能目标检测") as demo:
+
+demo = gr.Blocks(css=css, title="PP-YOLOE+ 智能目标检测")
+
+with demo:
     gr.Markdown("# PP-YOLOE+ 智能目标检测", elem_id="title")
     gr.Markdown("✨ 由 PaddleX 强力驱动，高效、精准、美观 ✨", elem_id="subtitle")
     
