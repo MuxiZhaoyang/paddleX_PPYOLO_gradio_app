@@ -62,6 +62,11 @@ print("正在启动 Gradio 应用...")
 
 # 加载模型
 print("正在加载PP-YOLOE_plus-S模型...")
+# 获取当前脚本的绝对路径
+current_file_path = os.path.abspath(__file__)
+
+# 输出当前脚本的位置
+print(f"当前脚本的位置是: {current_file_path}")
 try:
     # 直接在代码中定义配置字典
     # 注意：请确保 model_dir 的路径正确
