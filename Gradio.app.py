@@ -284,11 +284,5 @@ with gr.Blocks(css=css, title="PP-YOLOE+ 智能目标检测") as demo:
     )
 
 print("启动应用...")
-if __name__ == "__main__":
-    demo.launch(
-        server_name="0.0.0.0",
-        server_port=7860,
-        share=False,
-        debug=True
-    )
+demo.launch()
 # print("应用已启动")
