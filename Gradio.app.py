@@ -161,26 +161,15 @@ def detect_objects(img_input):
                     (128, 0, 128), (0, 128, 128)
                 ]
                 
-                # 自动搜索并加载中文字体
-                font_path_list = [
-                    "C:/Windows/Fonts/msyh.ttf",   # 微软雅黑
-                    "C:/Windows/Fonts/simhei.ttf",  # 黑体
-                    "C:/Windows/Fonts/simsun.ttc",  # 宋体
-                    "C:/Windows/Fonts/deng.ttf",    # 等线
-                ]
                 font = None
                 font_size = 15
-                
-                for font_path in font_path_list:
-                    try:
-                        font = ImageFont.truetype(font_path, font_size)
-                        print(f"成功加载字体: {font_path}")
-                        break
-                    except IOError:
-                        continue # 字体不存在或无法加载，尝试下一个
-                
-                if font is None:
-                    print("警告: 未在系统中找到可用的中文字体。将使用默认字体，中文可能无法正常显示。")
+                try:
+                    # 从项目相对路径加载字体，保证跨平台可用
+                    font_path = os.path.join(os.path.dirname(__file__), "inference", "msyh.ttf")
+                    font = ImageFont.truetype(font_path, font_size)
+                    print(f"成功从项目路径加载字体: {font_path}")
+                except IOError:
+                    print(f"警告: 未能在 {font_path} 找到字体文件。将使用默认字体，中文可能无法正常显示。")
                     font = ImageFont.load_default()
 
                 for box in result['boxes']:
