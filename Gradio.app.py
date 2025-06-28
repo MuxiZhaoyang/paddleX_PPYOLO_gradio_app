@@ -12,10 +12,10 @@ import importlib.util
 
 def install_paddlex():
     try:
-        # 执行pip install命令安装PaddleX
-        print("正在安装PaddleX...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "paddlex"])
-        print("PaddleX安装完成。")
+        # 执行pip install命令安装PaddleX及其CV依赖
+        print("正在安装PaddleX及其CV依赖...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "paddlex[cv]"])
+        print("PaddleX及其CV依赖安装完成。")
         
         # 检查PaddlePaddle是否正确安装
         print("正在检查PaddlePaddle安装...")
