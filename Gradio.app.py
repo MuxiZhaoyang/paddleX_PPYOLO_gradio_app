@@ -162,15 +162,36 @@ def detect_objects(img_input):
                     (128, 0, 128), (0, 128, 128)
                 ]
                 
+                # 增强的、跨平台的字体搜索逻辑
+                font_path_list = [
+                    # 1. 优先使用项目自带的字体 (最可靠)
+                    os.path.join(os.path.dirname(__file__), "inference", "msyh.ttf"),
+                    # 2. Windows 系统字体
+                    "C:/Windows/Fonts/msyh.ttf",
+                    "C:/Windows/Fonts/simhei.ttf",
+                    # 3. Linux 系统常见中文字体路径
+                    "/usr/share/fonts/wenquanyi/wqy-zenhei/wqy-zenhei.ttc",
+                    "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc",
+                    "/usr/share/fonts/wenquanyi/wqy-microhei/wqy-microhei.ttc",
+                    "/usr/share/fonts/truetype/arphic/uming.ttc",
+                    "/usr/share/fonts/noto/NotoSansCJK-Regular.ttc"
+                ]
+                
                 font = None
                 font_size = 15
-                try:
-                    # 从项目相对路径加载字体，保证跨平台可用
-                    font_path = os.path.join(os.path.dirname(__file__), "inference", "msyh.ttf")
-                    font = ImageFont.truetype(font_path, font_size)
-                    print(f"成功从项目路径加载字体: {font_path}")
-                except IOError:
-                    print(f"警告: 未能在 {font_path} 找到字体文件。将使用默认字体，中文可能无法正常显示。")
+                
+                for font_path in font_path_list:
+                    if os.path.exists(font_path):
+                        try:
+                            font = ImageFont.truetype(font_path, font_size)
+                            print(f"成功加载字体: {font_path}")
+                            break
+                        except IOError:
+                            print(f"找到字体文件 {font_path} 但加载失败，继续尝试...")
+                            continue
+                
+                if font is None:
+                    print("警告: 在所有预设路径中均未找到可用的中文字体。将使用默认字体，中文可能无法正常显示。")
                     font = ImageFont.load_default()
 
                 for box in result['boxes']:
