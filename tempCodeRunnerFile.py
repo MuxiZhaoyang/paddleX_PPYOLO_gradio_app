@@ -1,0 +1,1 @@
+print(f"Gradio 版本: {gr.__version__}")
