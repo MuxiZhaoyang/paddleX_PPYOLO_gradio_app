@@ -72,7 +72,8 @@ try:
                 "module_name": "object_detection",
                 "model_name": "PP-YOLOE_plus-S",
                 #"model_dir": r"C:\Users\23295\Desktop\inference",
-                "model_dir": r"C:\ProgramCodeFiles\DL\CURSOR\gradio_paddle\inference",
+                #"model_dir": r"C:\ProgramCodeFiles\DL\CURSOR\gradio_paddle\inference",
+                "model_dir": r"gradio_paddle\inference",
                 "batch_size": 1,
                 "threshold": 0.5
             }
