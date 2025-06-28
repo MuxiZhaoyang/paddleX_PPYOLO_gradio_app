@@ -162,10 +162,14 @@ def detect_objects(img_input):
                     (128, 0, 128), (0, 128, 128)
                 ]
                 
-                # 参考 py.bak 的方案，使用跨平台路径列表来搜索并加载中文字体
+                # --- 增强的调试模式：字体加载诊断 ---
+                print("\n--- 开始字体加载诊断 ---")
+                font = None
+                font_size = 15
+
                 font_path_list = [
                     # 1. 优先使用项目自带的字体 (最可靠)
-                    os.path.join(os.path.dirname(__file__), "inference", "msyh.ttf"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "inference", "msyh.ttf"),
                     # 2. Linux 系统常见中文字体路径
                     "/usr/share/fonts/wenquanyi/wqy-zenhei/wqy-zenhei.ttc",
                     "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc",
@@ -174,20 +178,28 @@ def detect_objects(img_input):
                     "C:/Windows/Fonts/msyh.ttf",
                     "C:/Windows/Fonts/simhei.ttf",
                 ]
-                font = None
-                font_size = 15
-                
+
                 for font_path in font_path_list:
-                    try:
-                        font = ImageFont.truetype(font_path, font_size)
-                        print(f"成功加载字体: {font_path}")
-                        break
-                    except IOError:
-                        continue # 字体不存在或无法加载，尝试下一个
-                
+                    print(f"正在尝试路径: {font_path}")
+                    if os.path.exists(font_path):
+                        print("  -> 路径存在。尝试加载字体...")
+                        try:
+                            font = ImageFont.truetype(font_path, font_size)
+                            print(f"  --> 成功加载字体: {font_path}")
+                            break  # 成功加载后立即退出循环
+                        except Exception as e:
+                            print(f"  --> 加载失败: {e}")
+                    else:
+                        print("  -> 路径不存在。")
+
                 if font is None:
-                    print("警告: 未在系统中找到可用的中文字体。将使用默认字体，中文可能无法正常显示。")
+                    print("\n!!! [严重警告] 所有预设路径的字体均加载失败 !!!")
+                    print("!!! 这将导致图片上的中文标签显示为乱码。!!!")
+                    print("!!! 请检查：1. 'inference'目录下是否已上传'msyh.ttf'字体文件。 2. 服务器是否安装了任何中文字体。!!!")
                     font = ImageFont.load_default()
+                
+                print("--- 字体加载诊断结束 ---\n")
+                # --- 结束字体加载诊断 ---
 
                 for box in result['boxes']:
                     # 获取边界框坐标
