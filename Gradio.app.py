@@ -80,7 +80,7 @@ try:
                 #"model_dir": r"C:\ProgramCodeFiles\DL\CURSOR\gradio_paddle\inference",
                 #"model_dir": r"gradio_paddle\inference",
                 #"model_dir": r"\gradio_paddle\inference",
-                "model_dir": r"/home/aistudio/Gradio.app.py",
+                "model_dir": r"\home\aistudio\inference",
                 "batch_size": 1,
                 "threshold": 0.5
             }
