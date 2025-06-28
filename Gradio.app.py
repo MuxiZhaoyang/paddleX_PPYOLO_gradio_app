@@ -1,7 +1,6 @@
 import gradio as gr
 import cv2
 import numpy as np
-from paddlex import create_pipeline
 from PIL import Image, ImageDraw, ImageFont
 import os
 import json
@@ -57,6 +56,7 @@ if __name__ == "__main__":
     else:
         print("安装或检查过程中出现问题，请查看上面的错误信息。")
 
+from paddlex import create_pipeline
 print("正在启动 Gradio 应用...")
 # print(f"Gradio 版本: {gr.__version__}")
 
